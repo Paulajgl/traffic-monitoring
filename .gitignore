@@ -1,0 +1,23 @@
+# Datos grandes
+data/raw/
+data/processed/
+*.zip
+*.parquet
+*.csv
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+.pytest_cache/
+
+# Credenciales
+.env
+.env.*
+*.pem
+*.key
+
+# Archivos temporales
+*.log
+.DS_Store
