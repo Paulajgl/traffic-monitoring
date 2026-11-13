@@ -1,0 +1,34 @@
+<project name="mdp-traffic" basedir="." default="dist">
+    <property name="name" value="mdp-traffic"/>
+    <property name="src" value="src"/>
+    <property name="dist" value="dist"/>
+    <property name="bin" value="build"/>
+
+    <path id="classpath">
+        <fileset dir="lib" erroronmissingdir="false">
+            <include name="*.jar"/>
+        </fileset>
+    </path>
+
+    <target name="prepare">
+        <mkdir dir="${bin}"/>
+        <mkdir dir="${dist}"/>
+    </target>
+
+    <target name="dist" depends="clean,prepare">
+        <javac destdir="${bin}" srcdir="${src}" includes="cl/uchile/pmd/traffic/**" source="1.8" target="1.8" debug="true" debuglevel="lines,source" includeantruntime="false">
+            <classpath refid="classpath"/>
+        </javac>
+        <jar jarfile="${dist}/${name}.jar" basedir="${bin}">
+            <manifest>
+                <!-- Opcional si deseas definir una clase principal ejecutable -->
+                <!-- <attribute name="Main-Class" value="cl.uchile.pmd.traffic.TrafficRiskBatch"/> -->
+            </manifest>
+        </jar>
+    </target>
+
+    <target name="clean">
+        <delete dir="${bin}" failonerror="false"/>
+        <delete dir="${dist}" failonerror="false"/>
+    </target>
+</project>
