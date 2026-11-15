@@ -3,11 +3,12 @@
 Proyecto Grupo 2 -  2026
 
 ## Descripción
-Sistema de monitoreo de accidentes de tráfico mediante Apache Kafka,
-simulando eventos en tiempo real a partir del dataset US Accidents.
 
-El sistema busca detectar aumentos repentinos de accidentes de alto
-impacto vial mediante ventanas temporales y generar alertas.
+Sistema híbrido de monitoreo y análisis masivo de accidentes de tráfico desarrollado sobre el dataset **US Accidents (2016–2023)** (~7,7 millones de registros), combinando procesamiento de flujos en tiempo real y análisis histórico distribuido:
+
+* **Detección de alertas en tiempo real (Apache Kafka):** Un productor (`AccidentProducer`) simula la ingesta continua de reportes viales acelerando el tiempo y particionando los eventos por estado. En paralelo, un consumidor (`SpatialBurstDetector`) filtra incidentes de alta severidad ($\ge 3$), agrupa las coordenadas en celdas geográficas y utiliza colas con ventanas de tiempo deslizantes para detectar aumentos repentinos (*bursts*) y emitir alertas de emergencia.
+
+* **Análisis histórico agregado (Apache Spark Core):** Sobre el conjunto de datos almacenado en HDFS, un trabajo distribuido basado en RDDs (`TrafficRiskBatch`) emplea transformaciones sobre `PairRDD` (`aggregateByKey` y `reduceByKey`) para calcular la severidad promedio según las condiciones climáticas e identificar puntos negros (*blackspots*) con mayor concentración histórica de accidentes.
 
 ## Dataset
 US Accidents (2016-2023)
