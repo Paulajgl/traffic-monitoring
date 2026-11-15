@@ -1,4 +1,4 @@
-package cl.uchile.pmd.traffic;
+package traffic;
 
 import java.io.Serializable;
 import java.util.Locale;

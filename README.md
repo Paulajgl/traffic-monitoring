@@ -9,26 +9,22 @@ simulando eventos en tiempo real a partir del dataset US Accidents.
 El sistema busca detectar aumentos repentinos de accidentes de alto
 impacto vial mediante ventanas temporales y generar alertas.
 
-Adicionalmente, se considera utilizar HDFS y Apache Spark para
-realizar análisis históricos de accidentes y condiciones climáticas.
-
 ## Dataset
 US Accidents (2016-2023)
 https://www.kaggle.com/datasets/sobhanmoosavi/us-accidents
 
-## Tecnologías
-- Python
-- Apache Kafka
-- Apache Hadoop HDFS (propuesto)
-- Apache Spark Core (propuesto)
+## Estructura del Proyecto
 
-## Estructura
-- data/: muestras de datos
-- producer/: productor de eventos Kafka
-- consumer/: procesamiento de eventos y alertas
-- spark/: análisis batch
-- scripts/: preprocesamiento
-- experiments/: experimentos de rendimiento
-- tests/: pruebas del sistema
-- results/: resultados obtenidos
-- config/: configuraciones de ejemplo
+* `src/traffic/`: Código fuente en Java (`AccidentProducer`, `SpatialBurstDetector`, `TrafficRiskBatch`).
+* `lib/`: Dependencias `.jar` necesarias para compilación y ejecución de Kafka/Spark.
+* `scripts/`: Scripts `.sh` de apoyo para levantar tópicos, consumidores y jobs de Spark.
+* `data/`: Muestras locales para pruebas (ignorado en Git).
+* `results/`: Salidas y registros de alertas obtenidos en las ejecuciones.
+* `build.xml`: Archivo de configuración para compilar el proyecto con Apache Ant (`ant`).
+
+## Compilación y Ejecución
+
+1. **Compilar:** `ant` (genera `dist/mdp-traffic.jar`).
+2. **Consumidor Kafka:** `java -cp "dist/mdp-traffic.jar:lib/*" traffic.SpatialBurstDetector grupo2-traffic 3600 3`
+3. **Productor Kafka:** `java -cp "dist/mdp-traffic.jar:lib/*" traffic.AccidentProducer data/sample_accidents.csv grupo2-traffic 10000`
+4. **Spark Batch:** `spark-submit --master spark://cluster-01:7077 --class traffic.TrafficRiskBatch dist/mdp-traffic.jar <hdfs_input> <hdfs_output>`

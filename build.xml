@@ -16,13 +16,12 @@
     </target>
 
     <target name="dist" depends="clean,prepare">
-        <javac destdir="${bin}" srcdir="${src}" includes="cl/uchile/pmd/traffic/**" source="1.8" target="1.8" debug="true" debuglevel="lines,source" includeantruntime="false">
+        <javac destdir="${bin}" srcdir="${src}" includes="traffic/**" source="1.8" target="1.8" debug="true" debuglevel="lines,source" includeantruntime="false">
             <classpath refid="classpath"/>
         </javac>
         <jar jarfile="${dist}/${name}.jar" basedir="${bin}">
             <manifest>
                 <!-- Opcional si deseas definir una clase principal ejecutable -->
-                <!-- <attribute name="Main-Class" value="cl.uchile.pmd.traffic.TrafficRiskBatch"/> -->
             </manifest>
         </jar>
     </target>

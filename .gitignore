@@ -1,23 +1,22 @@
-# Datos grandes
-data/raw/
-data/processed/
-*.zip
-*.parquet
+# Datos y archivos comprimidos
 *.csv
+*.parquet
+*.zip
 
-# Python
-__pycache__/
-*.pyc
-.venv/
-venv/
-.pytest_cache/
+# Compilados de Java y Ant
+build/
+dist/
+*.class
+*.jar
+!lib/*.jar
 
-# Credenciales
+# Credenciales y variables de entorno
 .env
 .env.*
 *.pem
 *.key
 
-# Archivos temporales
+# Logs y archivos temporales del SO
 *.log
 .DS_Store
+Thumbs.db
