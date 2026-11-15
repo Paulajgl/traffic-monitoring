@@ -21,7 +21,7 @@ public class AccidentProducer {
         double speedup = Double.parseDouble(args[2]); // Ej: 1000
 
         Properties props = new Properties();
-        props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
+        props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "c2:9092,c3:9092,c4:9092,c5:9092");
         props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
         props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
 
@@ -38,18 +38,18 @@ public class AccidentProducer {
             while ((line = br.readLine()) != null) {
                 // Regex segura para separar CSV con comillas internas
                 String[] cols = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
-                if (cols.length < 25) continue;
+                if (cols.length < 29) continue;
 
                 try {
                     String id = cols[0];
-                    int severity = Integer.parseInt(cols[1]);
+                    int severity = Integer.parseInt(cols[2]);
                     // Parseo del Start_Time (asumiendo formato estándar YYYY-MM-DD HH:MM:SS)
-                    String timeStr = cols[2].replace("\"", "").split("\\.")[0];
+                    String timeStr = cols[3].replace("\"", "").split("\\.")[0];
                     long currentTime = sdf.parse(timeStr).getTime();
                     double lat = Double.parseDouble(cols[5]);
                     double lng = Double.parseDouble(cols[6]);
-                    String state = cols[13];
-                    String weather = cols[24];
+                    String state = cols[14];
+                    String weather = cols[28];
 
                     // Simulación de aceleración temporal (igual que en Lab 06)
                     if (prevTime != -1 && currentTime > prevTime) {

@@ -36,7 +36,7 @@ public class SpatialBurstDetector {
         int xThreshold = Integer.parseInt(args[2]);      // Mínimo de accidentes graves para alerta
 
         Properties props = new Properties();
-        props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
+        props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "c2:9092,c3:9092,c4:9092,c5:9092");
         props.put(ConsumerConfig.GROUP_ID_CONFIG, "traffic-alert-group");
         props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
         props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());

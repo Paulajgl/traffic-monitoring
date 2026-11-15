@@ -47,10 +47,10 @@ public class TrafficRiskBatch implements Serializable {
 
         // CONSULTA 1: Impacto Climático en la Severidad (Weather_Condition -> Severidad Promedio)
         JavaPairRDD<String, Double> weatherSeverityPairs = cleanData
-            .filter(cols -> !cols[24].trim().isEmpty() && !cols[1].trim().isEmpty())
+            .filter(cols -> !cols[28].trim().isEmpty() && !cols[2].trim().isEmpty())
             .mapToPair(cols -> {
                 try {
-                    return new Tuple2<>(cols[24].trim(), Double.parseDouble(cols[1]));
+                    return new Tuple2<>(cols[28].trim(), Double.parseDouble(cols[2]));
                 } catch (Exception e) {
                     return new Tuple2<>("Unknown", 0.0);
                 }
